@@ -1,0 +1,52 @@
+package hi;
+
+import javax.swing.*;
+import java.awt.*;
+
+public class Menu4 extends JFrame {
+	private JTable table;
+
+	public Menu4() {
+		// 프레임 설정
+		setTitle("행사목록");
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setSize(500, 300);
+		setLocationRelativeTo(null);
+
+		// 데이터 배열 생성
+		Object[][] data = { { "001", "", "", "", "", "" }, { "002", "", "", "", "", "" }, { "003", "", "", "", "", "" },
+				{ "004", "", "", "", "", "" }, { "005", "", "", "", "", "" } };
+
+		// 열 제목 배열 생성
+		Object[] columns = { "행사번호", "행사명", "행사유형", "행사설명", "...", "조회" };
+		GridBagLayout gridBagLayout = new GridBagLayout();
+		gridBagLayout.columnWidths = new int[] { 452, 0 };
+		gridBagLayout.rowHeights = new int[] { 428, 0 };
+		gridBagLayout.columnWeights = new double[] { 0.0, Double.MIN_VALUE };
+		gridBagLayout.rowWeights = new double[] { 0.0, Double.MIN_VALUE };
+		getContentPane().setLayout(gridBagLayout);
+
+		// JTable 생성
+		table = new JTable(data, columns);
+
+		// JScrollPane을 사용하여 JTable을 감싸기 (스크롤 가능하도록)
+		JScrollPane scrollPane = new JScrollPane(table);
+		GridBagConstraints gbc_scrollPane = new GridBagConstraints();
+		gbc_scrollPane.anchor = GridBagConstraints.NORTHWEST;
+		gbc_scrollPane.gridx = 0;
+		gbc_scrollPane.gridy = 0;
+		getContentPane().add(scrollPane, gbc_scrollPane);
+
+		// 기타 프레임 설정
+		pack();
+	}
+
+	public static void main(String[] args) {
+		SwingUtilities.invokeLater(new Runnable() {
+			@Override
+			public void run() {
+				new Menu4().setVisible(true);
+			}
+		});
+	}
+}

@@ -1,0 +1,113 @@
+package hi;
+
+import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableCellEditor;
+import javax.swing.table.TableCellRenderer;
+import javax.swing.table.TableColumn;
+import javax.swing.table.TableColumnModel;
+
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+public class Menu6 extends JFrame {
+	private JTextField searchField;
+	private JButton searchButton;
+	private JTable table;
+	private JButton button;
+
+	public Menu6() {
+		// 프레임 설정
+		setTitle("예매 화면");
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setSize(800, 400);
+		setLocationRelativeTo(null);
+
+		// 테이블 데이터 배열 생성
+		Object[][] data = { { "001", "불꽃축제", "", "", "", "" }, { "002", "돌잔치", "", "", "", "" },
+				{ "003", "결혼식", "", "", "", "" }, { "004", "", "", "", "", "" }, { "005", "", "", "", "", "" } };
+
+		// 테이블 열 제목 배열 생성
+		Object[] columns = { "행사번호", "행사명", "행사유형", "행사설명", "행사...", "예매" };
+
+		// JTable 생성 및 데이터 모델 설정
+		DefaultTableModel tableModel = new DefaultTableModel(data, columns) {
+			@Override
+			public boolean isCellEditable(int row, int column) {
+				// 조회 버튼 열 이외의 셀은 편집 불가능하게 설정
+				return column == getColumnCount() - 1;
+			}
+		};
+
+		table = new JTable(tableModel);
+
+		// 상단 패널 (검색 화면과 버튼)
+		JPanel topPanel = new JPanel();
+		topPanel.setBounds(0, 0, 786, 33);
+		searchField = new JTextField(20);
+		searchButton = new JButton("검색");
+
+		// 검색 버튼에 대한 이벤트 리스너 등록
+		searchButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// 검색 기능을 추가하려면 이 부분에 검색 동작을 구현하면 됩니다.
+				JOptionPane.showMessageDialog(Menu6.this, "검색어: " + searchField.getText());
+			}
+		});
+		getContentPane().setLayout(null);
+
+		// 상단 패널에 검색 화면과 버튼 추가
+		topPanel.add(searchField);
+		topPanel.add(searchButton);
+		getContentPane().add(topPanel);
+
+		table.getColumnModel().getColumn(5).setCellRenderer(new TableCell());
+		table.getColumnModel().getColumn(5).setCellEditor(new TableCell());
+
+		// JScrollPane을 사용하여 JTable을 감싸기 (스크롤 가능하도록)
+		JScrollPane scrollPane = new JScrollPane(table);
+		scrollPane.setBounds(0, 38, 786, 428);
+		getContentPane().add(scrollPane);
+
+		button = new JButton("New button");
+		scrollPane.setColumnHeaderView(button);
+	}
+
+	public static void main(String[] args) {
+		SwingUtilities.invokeLater(new Runnable() {
+			@Override
+			public void run() {
+				new Menu6().setVisible(true);
+			}
+		});
+	}
+}
+
+class TableCell extends AbstractCellEditor implements TableCellEditor, TableCellRenderer {
+	JButton jb;
+
+	public TableCell() {
+		jb = new JButton("예매");
+		jb.addActionListener(e -> {
+			JOptionPane.showMessageDialog(null, "조회 버튼 클릭: " + jb.getText());
+		});
+	}
+
+	@Override
+	public Object getCellEditorValue() {
+		return null;
+	}
+
+	@Override
+	public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus,
+			int row, int column) {
+		return jb;
+	}
+
+	@Override
+	public Component getTableCellEditorComponent(JTable table, Object value, boolean isSelected, int row, int column) {
+		return jb;
+	}
+}
