@@ -24,10 +24,10 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellEditor;
 import javax.swing.table.TableCellRenderer;
 
-class DB_Conn_Query12 {
+class DB_Conn_Query1 {
 	Connection con = null;
 
-	public DB_Conn_Query12() {
+	public DB_Conn_Query1() {
 		String url = "l";
 		String id = "e";
 		String password = "";

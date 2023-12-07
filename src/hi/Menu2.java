@@ -27,9 +27,9 @@ class DB_Conn_Query1 {
 	Connection con = null;
 
 	public DB_Conn_Query1() {
-		String url = "jdbc:oracle:thin:@eventadmin.kro.kr:1521:orcl";
-		String id = "event18";
-		String password = "1234";
+		String url = "";
+		String id = "";
+		String password = "";
 		try {
 			Class.forName("oracle.jdbc.driver.OracleDriver");
 			System.out.println("드라이버 적재 성공");
